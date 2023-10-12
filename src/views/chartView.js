@@ -15,17 +15,38 @@ function fillComplexities(data, complexitiesObject) {
     });
 }
 
-function logComplexitiesCount(complexitiesObject) {
+// Função para criar a tabela com os dados de complexidades
+function createTable(complexitiesObject) {
+    const tableContainer = document.getElementById('table-container');
+    const table = document.createElement('table');
+    const headerRow = table.createTHead().insertRow(0);
+
+    // Adiciona cabeçalho da tabela
+    const headerCellComplexity = headerRow.insertCell(0);
+    const headerCellCount = headerRow.insertCell(1);
+    headerCellComplexity.textContent = 'Complexidade';
+    headerCellCount.textContent = 'Quantidade de Itens';
+
+    // Adiciona linhas com os dados
     const complexities = Object.keys(complexitiesObject);
-    complexities.forEach(complexity => {
-        console.log(`Quantidade de itens em ${complexity}: ${complexitiesObject[complexity].length}`);
+    complexities.forEach((complexity, index) => {
+        const row = table.insertRow(index + 1);
+        const cellComplexity = row.insertCell(0);
+        const cellCount = row.insertCell(1);
+        cellComplexity.textContent = complexity;
+        cellCount.textContent = complexitiesObject[complexity].length;
     });
+
+    // Adiciona a tabela ao contêiner
+    tableContainer.innerHTML = '';
+    tableContainer.appendChild(table);
 }
 
+// Função principal que chama as outras funções
 function groupByComplexity(data) {
     const complexitiesObject = initializeComplexities();
     fillComplexities(data, complexitiesObject);
-    logComplexitiesCount(complexitiesObject);
+    createTable(complexitiesObject);
     return complexitiesObject;
 }
 
