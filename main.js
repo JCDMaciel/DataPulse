@@ -6,7 +6,7 @@ const { readCSV } = require('./src/models/csvModel');
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
-        height: 600,
+        height: 1200,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -19,7 +19,6 @@ function createWindow() {
         notifier.notify({
             title: 'Dados do CSV lidos!',
             message: 'Os dados do arquivo CSV foram lidos com sucesso.',
-            icon: path.join(__dirname, 'path-to-your-icon.png'),
         });
     });
 

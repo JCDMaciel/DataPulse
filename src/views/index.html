@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Pulse</title>
-    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Data Pulse</title>
+        <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    </head>
 
-<body>
-<div class="container mt-4">
-    <div class="row">
-        <div class="col">
-            <form id="uploadForm">
-                <div class="mb-3">
-                    <label for="fileInput" class="form-label">Escolha um arquivo CSV:</label>
-                    <input type="file" class="form-control" id="fileInput" accept=".csv">
+    <body>
+        <campo-upload>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col">
+                        <form id="uploadForm">
+                            <div class="mb-3">
+                                <label for="fileInput" class="form-label">Escolha um arquivo CSV:</label>
+                                <input type="file" class="form-control" id="fileInput" accept=".csv">
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="handleUpload()">Upload</button>
+                        </form>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="handleUpload()">Upload</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="col">
-        <canvas id="myChart" style="margin-top: 20px;"></canvas>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div id="table-container" class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="table-dark"></thead>
-                    <tbody></tbody>
-                </table>
             </div>
-        </div>
-    </div>
-</div>
+        </campo-upload>
 
-<script src="chartView.js"></script>
-<script src="upload.js"></script>
-<script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <grafico>
+            <div class="container mt-4">
+                <div class="col">
+                    <canvas id="myChart" style="margin-top: 20px;"></canvas>
+                </div>
+            </div>
+        </grafico>
 
-</body>
+        <tabela-de-resultados>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col">
+                        <div id="table-container" class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark"></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tabela-de-resultados>
+
+        <script src="chartView.js"></script>
+        <script src="upload.js"></script>
+        <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
 </html>
