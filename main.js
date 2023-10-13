@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const notifier = require('node-notifier');
 const { readCSV } = require('./src/models/csvModel');
+const { ipcRenderer } = require('electron');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -15,11 +16,7 @@ function createWindow() {
 
     readCSV('./dados/arquivo.csv', data => {
         win.webContents.send('csv-data', data);
-
-        notifier.notify({
-            title: 'Dados do CSV lidos!',
-            message: 'Os dados do arquivo CSV foram lidos com sucesso.',
-        });
+        console.log('Os dados do arquivo CSV foram lidos com sucesso.');
     });
 
     win.loadFile(path.join(__dirname, 'src/views/index.html'));
@@ -38,3 +35,14 @@ app.on('activate', () => {
         createWindow();
     }
 });
+
+ipcMain.on('reload-app', () => {
+    const currentWindow = BrowserWindow.getFocusedWindow();
+
+    createWindow();
+
+    if (currentWindow) {
+        currentWindow.close();
+    }
+});
+

@@ -7,17 +7,10 @@ function handleUpload() {
     const file = fileInput.files[0];
 
     if (file) {
-        notifier.notify({
-            title: 'Arquivo selecionado!',
-            message: file.name,
-        });
-
+        console.log('Arquivo selecionado!' + file.name);
         processUpload(file);
     } else {
-        notifier.notify({
-            title: 'Central de upload',
-            message: 'Nenhum arquivo selecionado!',
-        });
+        console.log('Nenhum arquivo selecionado!');
     }
 }
 
@@ -28,20 +21,13 @@ function processUpload(file) {
     deleteOldFile(arquivoAntigo);
     moveAndRenameFile(file, dadosPath);
 
-    notifier.notify({
-        title: 'Central de upload',
-        message: 'Novo arquivo adicionado como arquivo.csv.',
-    });
+    console.log('Novo arquivo adicionado como arquivo.csv.');
 }
 
 function deleteOldFile(filePath) {
     if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
-
-        notifier.notify({
-            title: 'Central de upload',
-            message: 'Arquivo antigo deletado.',
-        });
+        console.log('Arquivo antigo deletado.');
     }
 }
 
@@ -65,4 +51,8 @@ function createDirectoryIfNotExists(directoryPath) {
 
 function copyFileAndDeleteOriginal(sourcePath, destinationPath) {
     fs.copyFileSync(sourcePath, destinationPath);
+}
+
+function handleReload() {
+    ipcRenderer.send('reload-app');
 }
