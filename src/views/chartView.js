@@ -18,10 +18,16 @@ function fillComplexities(data, complexitiesObject) {
 function createTable(complexitiesObject) {
     const tableContainer = document.getElementById('table-container');
     const table = document.createElement('table');
-    const headerRow = table.createTHead().insertRow(0);
+    table.classList.add('table', 'table-bordered');
+
+    const thead = table.createTHead();
+    thead.classList.add('table-dark');
+
+    const headerRow = thead.insertRow(0);
 
     const headerCellComplexity = headerRow.insertCell(0);
     const headerCellCount = headerRow.insertCell(1);
+
     headerCellComplexity.textContent = 'Complexidade';
     headerCellCount.textContent = 'Quantidade de Itens';
 
@@ -47,11 +53,7 @@ function groupByComplexity(data) {
 
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    return `#${Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join('')}`;
 }
 
 const { ipcRenderer } = require('electron');

@@ -9,17 +9,28 @@
 </head>
 
 <body>
-<canvas id="myChart"></canvas>
-<script src="chartView.js"></script>
-
 <div class="container mt-4">
+    <div class="col">
+        <canvas id="myChart" style="margin-top: 20px;"></canvas>
+    </div>
     <div class="row">
         <div class="col">
-            <div id="table-container"></div>
+            <div id="table-container" class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Complexidade</th>
+                        <th scope="col">Quantidade de Itens</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
+<script src="chartView.js"></script>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
