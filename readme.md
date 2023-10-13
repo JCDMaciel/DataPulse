@@ -1,6 +1,7 @@
 # DataPulse
 
-Este projeto é uma aplicação Electron para visualizar dados de um arquivo CSV.
+DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights.
+Esteja no ritmo do seu sucesso com gráficos dinâmicos. Sinta a vitalidade dos dados. Inovação que pulsa!
 
 ## Estrutura de Pastas
 
