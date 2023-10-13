@@ -29,7 +29,7 @@ function createTable(complexitiesObject) {
     const headerCellCount = headerRow.insertCell(1);
 
     headerCellComplexity.textContent = 'Complexidade';
-    headerCellCount.textContent = 'Quantidade de Itens';
+    headerCellCount.textContent = 'Itens por complexidade';
 
     const complexities = Object.keys(complexitiesObject);
     complexities.forEach((complexity, index) => {
