@@ -1,15 +1,23 @@
 const fs = require('fs');
 const path = require('path');
+const notifier = require("node-notifier");
 
 function handleUpload() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
 
     if (file) {
-        console.log('Arquivo selecionado:', file.name);
+        notifier.notify({
+            title: 'Arquivo selecionado!',
+            message: file.name,
+        });
+
         processUpload(file);
     } else {
-        console.log('Nenhum arquivo selecionado.');
+        notifier.notify({
+            title: 'Central de upload',
+            message: 'Nenhum arquivo selecionado!',
+        });
     }
 }
 
@@ -20,13 +28,20 @@ function processUpload(file) {
     deleteOldFile(arquivoAntigo);
     moveAndRenameFile(file, dadosPath);
 
-    console.log('Novo arquivo adicionado como arquivo.csv');
+    notifier.notify({
+        title: 'Central de upload',
+        message: 'Novo arquivo adicionado como arquivo.csv.',
+    });
 }
 
 function deleteOldFile(filePath) {
     if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
-        console.log('Arquivo antigo deletado.');
+
+        notifier.notify({
+            title: 'Central de upload',
+            message: 'Arquivo antigo deletado.',
+        });
     }
 }
 
