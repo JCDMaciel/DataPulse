@@ -1,4 +1,7 @@
 const Chart = require('chart.js');
+const { ipcRenderer } = require('electron');
+
+let myChart;
 
 function initializeComplexities() {
     const complexities = ['undefined', '01 - Baixa', '02 - Média', '03 - Alta', '04 - Muito Alta'];
@@ -17,20 +20,33 @@ function fillComplexities(data, complexitiesObject) {
 
 function createTable(complexitiesObject) {
     const tableContainer = document.getElementById('table-container');
+    const table = createTableElement(complexitiesObject);
+    updateTableContainer(tableContainer, table);
+}
+
+function createTableElement(complexitiesObject) {
     const table = document.createElement('table');
     table.classList.add('table', 'table-bordered');
 
+    createTableHeader(table);
+    createTableBody(table, complexitiesObject);
+
+    return table;
+}
+
+function createTableHeader(table) {
     const thead = table.createTHead();
     thead.classList.add('table-dark');
 
     const headerRow = thead.insertRow(0);
-
     const headerCellComplexity = headerRow.insertCell(0);
     const headerCellCount = headerRow.insertCell(1);
 
     headerCellComplexity.textContent = 'Complexidade';
     headerCellCount.textContent = 'Itens por complexidade';
+}
 
+function createTableBody(table, complexitiesObject) {
     const complexities = Object.keys(complexitiesObject);
     complexities.forEach((complexity, index) => {
         const row = table.insertRow(index + 1);
@@ -39,9 +55,11 @@ function createTable(complexitiesObject) {
         cellComplexity.textContent = complexity;
         cellCount.textContent = complexitiesObject[complexity].length;
     });
+}
 
-    tableContainer.innerHTML = '';
-    tableContainer.appendChild(table);
+function updateTableContainer(container, table) {
+    container.innerHTML = '';
+    container.appendChild(table);
 }
 
 function groupByComplexity(data) {
@@ -56,16 +74,17 @@ function getRandomColor() {
     return `#${Array.from({ length: 6 }, () => letters[Math.floor(Math.random() * 16)]).join('')}`;
 }
 
-const { ipcRenderer } = require('electron');
 ipcRenderer.on('csv-data', (event, data) => {
+    groupByComplexity(data);
+    calculateTotalItemsAndAverage(data);
     renderChart('myChart', data);
 });
 
 function renderChart(canvasId, data) {
     const ctx = document.getElementById(canvasId).getContext('2d');
+    destroyExistingChart();
 
     const groupedData = groupByComplexity(data);
-
     const complexities = ['undefined', '01 - Baixa', '02 - Média', '03 - Alta', '04 - Muito Alta'];
 
     const dataset = {
@@ -74,7 +93,17 @@ function renderChart(canvasId, data) {
         backgroundColor: complexities.map(getRandomColor),
     };
 
-    new Chart(ctx, {
+    createNewChart(ctx, complexities, dataset);
+}
+
+function destroyExistingChart() {
+    if (myChart) {
+        myChart.destroy();
+    }
+}
+
+function createNewChart(ctx, complexities, dataset) {
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: complexities,
@@ -86,6 +115,42 @@ function renderChart(canvasId, data) {
             },
         },
     });
+}
+
+function calculateTotalItemsAndAverage(data) {
+    const totalItensNoMes = data.length;
+    const daysMap = createDaysMap(data);
+
+    const totalDays = daysMap.size;
+    const totalItemsPerDay = Array.from(daysMap.values());
+    const averageItemsPerDay = calculateAverageItemsPerDay(totalItemsPerDay, totalDays);
+
+    updateUI(totalItensNoMes, averageItemsPerDay);
+}
+
+function createDaysMap(data) {
+    const daysMap = new Map();
+    data.forEach(entry => {
+        const resolvedDate = new Date(entry['Resolved Date Log1']);
+        const dayKey = resolvedDate.toISOString().split('T')[0];
+
+        if (!daysMap.has(dayKey)) {
+            daysMap.set(dayKey, 0);
+        }
+
+        daysMap.set(dayKey, daysMap.get(dayKey) + 1);
+    });
+
+    return daysMap;
+}
+
+function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
+    return totalItemsPerDay.reduce((sum, count) => sum + count, 0) / totalDays;
+}
+
+function updateUI(totalItensNoMes, averageItemsPerDay) {
+    document.getElementById('totalItensNoMes').textContent = totalItensNoMes.toString();
+    document.getElementById('mediaItensPorDia').textContent = averageItemsPerDay.toFixed(2);
 }
 
 function handleReload() {
