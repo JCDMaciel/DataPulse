@@ -13,6 +13,7 @@ Este projeto é uma aplicação Electron para visualizar dados de um arquivo CSV
     - **views:** Contém as visualizações da aplicação.
         - `chartView.js`
         - `index.html`
+        - `upload.js`
 - **main.js:** Ponto de entrada para a aplicação Electron.
 - **package.json:** Arquivo de configuração do Node.js.
 
