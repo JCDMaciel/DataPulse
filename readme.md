@@ -14,7 +14,6 @@ Esteja no ritmo do seu sucesso com gráficos dinâmicos. Sinta a vitalidade dos 
     - **views:** Contém as visualizações da aplicação.
         - `chartView.js`
         - `index.html`
-        - `upload.js`
 - **main.js:** Ponto de entrada para a aplicação Electron.
 - **package.json:** Arquivo de configuração do Node.js.
 

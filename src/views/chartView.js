@@ -87,3 +87,7 @@ function renderChart(canvasId, data) {
         },
     });
 }
+
+function handleReload() {
+    ipcRenderer.send('reload-app');
+}
