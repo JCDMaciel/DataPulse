@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const notifier = require("node-notifier");
 
 function handleUpload() {
     const fileInput = document.getElementById('fileInput');

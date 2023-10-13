@@ -1,8 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const notifier = require('node-notifier');
 const { readCSV } = require('./src/models/csvModel');
-const { ipcRenderer } = require('electron');
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -45,4 +43,3 @@ ipcMain.on('reload-app', () => {
         currentWindow.close();
     }
 });
-
