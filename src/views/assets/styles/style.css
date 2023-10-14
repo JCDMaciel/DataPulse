@@ -29,3 +29,16 @@ body {
     background-color: #333;
     color: #fff;
 }
+
+.graffiti-font {
+    font-family: 'Arial', sans-serif;
+    font-size: 28px;
+    background: linear-gradient(to bottom, white 80%, black 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
