@@ -6,22 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Data Pulse</title>
         <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../views/assets/styles/style.css">
     </head>
 
     <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                    <img src="caminho/para/sua/logo.png" width="30" height="30" alt="Sua Logo">
-                </a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="caminho/para/sua/logo.png" width="30" height="30" alt="Sua Logo">
+            </a>
 
-                <div class="ml-auto">
-                    <button class="btn btn-primary" onclick="abrirLinkExterno()">Baixar CSV</button>
-                    <button class="btn btn-secondary" id="uploadButton">Upload CSV</button>
-                    <button type="button" class="btn btn-primary" onclick="handleReload()">Reload</button>
-                </div>
-            </nav>
-        </header>
+            <div class="ml-auto">
+                <button class="btn btn-black" onclick="abrirLinkExterno()">Baixar CSV</button>
+                <button class="btn btn-black" id="uploadButton">Upload CSV</button>
+                <button type="button" class="btn btn-black" onclick="handleReload()">Reload</button>
+            </div>
+        </nav>
+    </header>
 
         <input type="file" id="fileInput" accept=".csv" style="display:none;" onchange="handleFileUpload()">
 

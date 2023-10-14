@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+.navbar {
+    background-color: #000 !important;
+    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-light .navbar-brand {
+    color: #fff;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.btn-black {
+    background-color: #000;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.btn-black:hover {
+    background-color: #333;
+    color: #fff;
+}
