@@ -1,5 +1,3 @@
-const { shell, ipcRenderer } = require('electron');
-
 /**
  * Atualiza os elementos da interface do usuário com os valores fornecidos.
  * @param {number} totalItensNoMes - O total de itens no mês.
@@ -23,7 +21,8 @@ function updateElementText(elementId, text) {
  * Abre um link externo no navegador padrão.
  * @param {string} url - A URL do link externo.
  */
-function abrirLinkExterno(url) {
+function abrirLinkExterno() {
+    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=f76e0957-bfbb-4f82-aeb2-bfee85b4d37b';
     shell.openExternal(url);
 }
 

@@ -1,4 +1,4 @@
-const { createTableElement } = require('../views/assets/styles/js/tableBuilder');
+const { createTableElement } = require('../views/assets/js/tableBuilder');
 
 /**
  * Inicializa um objeto de complexidades com arrays vazios.
