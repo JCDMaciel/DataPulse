@@ -1,7 +1,6 @@
 # DataPulse
 
-DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights.
-Esteja no ritmo do seu sucesso com gráficos dinâmicos. Sinta a vitalidade dos dados. Inovação que pulsa!
+DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights. Esteja no ritmo do seu sucesso com gráficos dinâmicos. Sinta a vitalidade dos dados. Inovação que pulsa!
 
 ## Estrutura de Pastas
 
@@ -11,9 +10,13 @@ Esteja no ritmo do seu sucesso com gráficos dinâmicos. Sinta a vitalidade dos 
         - `mainController.js`
     - **models:** Contém modelos relacionados ao processamento de dados.
         - `csvModel.js`
+        - `dataProcessor.js`
+        - `fileHandler.js`
     - **views:** Contém as visualizações da aplicação.
-        - `chartView.js`
         - `index.html`
+        - `tableBuilder.js`
+        - `chartRenderer.js`
+        - `uiUpdater.js`
 - **main.js:** Ponto de entrada para a aplicação Electron.
 - **package.json:** Arquivo de configuração do Node.js.
 
@@ -24,3 +27,6 @@ Certifique-se de ter o Node.js instalado e, em seguida, execute os seguintes pas
 1. Instale as dependências:
    ```bash
    npm install
+   ```
+
+Com essa nova estrutura, o código foi modularizado e as responsabilidades foram distribuídas em arquivos específicos para facilitar a manutenção e compreensão do código. Se precisar de mais alguma coisa, estou aqui para ajudar!

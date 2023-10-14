@@ -21,6 +21,27 @@ function readCSV(filePath, callback) {
     });
 }
 
+function createDaysMap(data) {
+    return data.reduce((daysMap, entry) => {
+        const resolvedDate = new Date(entry['Resolved Date Log1']);
+        const dayKey = resolvedDate.toISOString().split('T')[0];
+
+        if (!daysMap.has(dayKey)) {
+            daysMap.set(dayKey, 0);
+        }
+
+        daysMap.set(dayKey, daysMap.get(dayKey) + 1);
+
+        return daysMap;
+    }, new Map());
+}
+
+function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
+    return totalItemsPerDay.reduce((sum, count) => sum + count, 0) / totalDays;
+}
+
 module.exports = {
     readCSV,
+    createDaysMap,
+    calculateAverageItemsPerDay,
 };
