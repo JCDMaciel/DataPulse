@@ -30,6 +30,9 @@ function createMainWindow() {
 
 // Quando o aplicativo estiver pronto, cria a janela principal
 app.whenReady().then(() => {
+    // (essa variavel não está em desuso)
+    const mainWindow = createMainWindow();
+
     // Ativa a janela principal se não houver janelas abertas
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
@@ -51,6 +54,11 @@ app.on('window-all-closed', () => {
  */
 ipcMain.on('reload-app', () => {
     const currentWindow = BrowserWindow.getFocusedWindow();
+
+    // Cria uma nova janela principal
+    // (essa variavel não está em desuso)
+    const mainWindow = createMainWindow();
+
     // Fecha a janela atual se existir
     if (currentWindow) {
         currentWindow.close();
