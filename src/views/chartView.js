@@ -1,14 +1,15 @@
 const Chart = require('chart.js');
-const { ipcRenderer, shell} = require('electron');
+const { ipcRenderer, shell } = require('electron');
+const path = require('path');
 
 let myChart;
 
 function initializeComplexities() {
-    const complexities = ['undefined', '01 - Baixa', '02 - Média', '03 - Alta', '04 - Muito Alta'];
-    return complexities.reduce((acc, complexity) => {
-        acc[complexity] = [];
-        return acc;
-    }, {});
+    return ['undefined', '01 - Baixa', '02 - Média', '03 - Alta', '04 - Muito Alta']
+        .reduce((acc, complexity) => {
+            acc[complexity] = [];
+            return acc;
+        }, {});
 }
 
 function fillComplexities(data, complexitiesObject) {
@@ -39,22 +40,27 @@ function createTableHeader(table) {
     thead.classList.add('table-dark');
 
     const headerRow = thead.insertRow(0);
-    const headerCellComplexity = headerRow.insertCell(0);
-    const headerCellCount = headerRow.insertCell(1);
-
-    headerCellComplexity.textContent = 'Complexidade';
-    headerCellCount.textContent = 'Itens por complexidade';
+    createHeaderCell(headerRow, 'Complexidade');
+    createHeaderCell(headerRow, 'Itens por complexidade');
 }
 
 function createTableBody(table, complexitiesObject) {
     const complexities = Object.keys(complexitiesObject);
     complexities.forEach((complexity, index) => {
         const row = table.insertRow(index + 1);
-        const cellComplexity = row.insertCell(0);
-        const cellCount = row.insertCell(1);
-        cellComplexity.textContent = complexity;
-        cellCount.textContent = complexitiesObject[complexity].length;
+        createCell(row, complexity);
+        createCell(row, complexitiesObject[complexity].length);
     });
+}
+
+function createHeaderCell(row, text) {
+    const cell = row.insertCell();
+    cell.textContent = text;
+}
+
+function createCell(row, value) {
+    const cell = row.insertCell();
+    cell.textContent = value;
 }
 
 function updateTableContainer(container, table) {
@@ -129,8 +135,7 @@ function calculateTotalItemsAndAverage(data) {
 }
 
 function createDaysMap(data) {
-    const daysMap = new Map();
-    data.forEach(entry => {
+    return data.reduce((daysMap, entry) => {
         const resolvedDate = new Date(entry['Resolved Date Log1']);
         const dayKey = resolvedDate.toISOString().split('T')[0];
 
@@ -139,9 +144,9 @@ function createDaysMap(data) {
         }
 
         daysMap.set(dayKey, daysMap.get(dayKey) + 1);
-    });
 
-    return daysMap;
+        return daysMap;
+    }, new Map());
 }
 
 function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
@@ -154,7 +159,7 @@ function updateUI(totalItensNoMes, averageItemsPerDay) {
 }
 
 function abrirLinkExterno() {
-    url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=f76e0957-bfbb-4f82-aeb2-bfee85b4d37b';
+    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=f76e0957-bfbb-4f82-aeb2-bfee85b4d37b';
     shell.openExternal(url);
 }
 
@@ -171,49 +176,52 @@ function handleUploadButtonClick() {
     document.getElementById('fileInput').click();
 }
 
-// Adicione esta função no seu chartView.js
 async function handleFileUpload() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
 
     if (file) {
         if (file.name.endsWith('.csv')) {
-            const fs = require('fs').promises;
-            const fsOriginal = require('fs');
-            const path = require('path');
-            const uploadDir = path.join(__dirname, '..', '..', 'dados');
-            const uploadPath = path.join(uploadDir, 'arquivo.csv');
-
-            try {
-                // Verifique se a pasta 'dados' existe, crie se não existir
-                await fs.mkdir(uploadDir, { recursive: true });
-
-                // Verifique se há um arquivo 'arquivo.csv' e exclua se existir
-                const existingFile = path.join(uploadDir, 'arquivo.csv');
-                await fs.unlink(existingFile).catch(() => {}); // Ignora se não existir
-
-                // Crie uma cópia do arquivo original e salve como 'arquivo.csv'
-                const readStream = fsOriginal.createReadStream(file.path);
-                const writeStream = fsOriginal.createWriteStream(uploadPath);
-
-                readStream.pipe(writeStream);
-
-                writeStream.on('finish', () => {
-                    // Operação de cópia concluída com sucesso
-                    // Aqui você pode adicionar lógica adicional se necessário
-
-                    // Recarregue a página ou faça qualquer ação necessária
-                    handleReload();
-                });
-
-                writeStream.on('error', (err) => {
-                    console.error(err);
-                });
-            } catch (err) {
-                console.error(err);
-            }
+            await uploadCsvFile(file);
         } else {
             alert('Por favor, selecione um arquivo CSV.');
         }
     }
+}
+
+async function uploadCsvFile(file) {
+    const uploadDir = path.join(__dirname, '..', '..', 'dados');
+    const uploadPath = path.join(uploadDir, 'arquivo.csv');
+
+    try {
+        await createDirectory(uploadDir);
+        await deleteExistingFile(uploadPath);
+        await copyFile(file.path, uploadPath);
+        handleReload();
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function createDirectory(directoryPath) {
+    const fs = require('fs').promises;
+    await fs.mkdir(directoryPath, { recursive: true });
+}
+
+async function deleteExistingFile(filePath) {
+    const fs = require('fs').promises;
+    await fs.unlink(filePath).catch(() => {});
+}
+
+async function copyFile(sourcePath, destinationPath) {
+    const fs = require('fs').promises;
+    const fsOriginal = require('fs');
+    const readStream = fsOriginal.createReadStream(sourcePath);
+    const writeStream = fsOriginal.createWriteStream(destinationPath);
+
+    await new Promise((resolve, reject) => {
+        readStream.pipe(writeStream);
+        writeStream.on('finish', resolve);
+        writeStream.on('error', reject);
+    });
 }
