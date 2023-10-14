@@ -5,10 +5,14 @@ function createTableAndChart(canvasId, complexitiesObject) {
     const chartCanvas = document.getElementById(canvasId);
     const complexities = Object.keys(complexitiesObject);
 
+    const ghostLabel = complexities.map(complexity => {
+        return `<svg xmlns="http://www.w3.org/2000/svg"></svg>`;
+    });
+
     const table = createTableElement(complexitiesObject);
     const ctx = chartCanvas.getContext('2d');
     const dataset = {
-        label: 'Quantidade de Itens',
+        label: ghostLabel,
         data: complexities.map(complexity => complexitiesObject[complexity]?.length || 0),
         backgroundColor: complexities.map(chartRenderer.getRandomColor),
     };
