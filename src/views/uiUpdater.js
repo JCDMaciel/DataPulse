@@ -1,4 +1,3 @@
-
 function updateUI(totalItensNoMes, averageItemsPerDay) {
     document.getElementById('totalItensNoMes').textContent = totalItensNoMes.toString();
     document.getElementById('mediaItensPorDia').textContent = averageItemsPerDay.toFixed(2);
