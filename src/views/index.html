@@ -17,11 +17,13 @@
 
                 <div class="ml-auto">
                     <button class="btn btn-primary" onclick="abrirLinkExterno()">Baixar CSV</button>
-                    <button class="btn btn-secondary" onclick="uploadCSV()">Upload CSV</button>
+                    <button class="btn btn-secondary" id="uploadButton">Upload CSV</button>
                     <button type="button" class="btn btn-primary" onclick="handleReload()">Reload</button>
                 </div>
             </nav>
         </header>
+
+        <input type="file" id="fileInput" accept=".csv" style="display:none;" onchange="handleFileUpload()">
 
         <grafico>
             <div class="container mt-4">

@@ -161,3 +161,35 @@ function abrirLinkExterno() {
 function handleReload() {
     ipcRenderer.send('reload-app');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadButton = document.getElementById('uploadButton');
+    uploadButton.addEventListener('click', handleUploadButtonClick);
+});
+
+function handleUploadButtonClick() {
+    document.getElementById('fileInput').click();
+}
+
+function handleFileUpload() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        if (file.name.endsWith('.csv')) {
+            const fs = require('fs');
+            const path = require('path');
+            const uploadPath = path.join(__dirname, '..', '..', 'dados', file.name);
+
+            fs.copyFile(file.path, uploadPath, (err) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    handleReload();
+                }
+            });
+        } else {
+            alert('Por favor, selecione um arquivo CSV.');
+        }
+    }
+}
