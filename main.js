@@ -12,7 +12,7 @@ function createWindow() {
         },
     });
 
-    readCSV('./dados/arquivo.csv', data => {
+    readCSV('./dados/arquivo.csv', (data) => {
         win.webContents.send('csv-data', data);
         console.log('Os dados do arquivo CSV foram lidos com sucesso.');
     });
@@ -20,17 +20,19 @@ function createWindow() {
     win.loadFile(path.join(__dirname, 'src/views/index.html'));
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+    createWindow();
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+        }
+    });
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
-    }
-});
-
-app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
     }
 });
 

@@ -1,5 +1,5 @@
 const Chart = require('chart.js');
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, shell} = require('electron');
 
 let myChart;
 
@@ -151,6 +151,11 @@ function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
 function updateUI(totalItensNoMes, averageItemsPerDay) {
     document.getElementById('totalItensNoMes').textContent = totalItensNoMes.toString();
     document.getElementById('mediaItensPorDia').textContent = averageItemsPerDay.toFixed(2);
+}
+
+function abrirLinkExterno() {
+    url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=f76e0957-bfbb-4f82-aeb2-bfee85b4d37b';
+    shell.openExternal(url);
 }
 
 function handleReload() {
