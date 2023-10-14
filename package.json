@@ -1,14 +1,22 @@
 {
   "name": "datapulse",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron main.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Cleber Maciel",
   "license": "ISC",
-  "description": "",
+  "description": "Um aplicativo Electron para visualização de dados mensais",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JCDMaciel/DataPulse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JCDMaciel/DataPulse/issues"
+  },
+  "homepage": "https://github.com/JCDMaciel/DataPulse",
   "dependencies": {
     "bootstrap": "^5.3.2",
     "chart.js": "^3.9.1",

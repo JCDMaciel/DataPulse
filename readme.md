@@ -13,10 +13,14 @@ DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights. E
         - `dataProcessor.js`
         - `fileHandler.js`
     - **views:** Contém as visualizações da aplicação.
+        - **assets:**
+            - **styles:**
+                - `style.css`
+            - **js:**
+                - `tableBuilder.js`
+                - `chartRenderer.js`
+                - `uiUpdater.js`
         - `index.html`
-        - `tableBuilder.js`
-        - `chartRenderer.js`
-        - `uiUpdater.js`
 - **main.js:** Ponto de entrada para a aplicação Electron.
 - **package.json:** Arquivo de configuração do Node.js.
 
@@ -24,9 +28,18 @@ DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights. E
 
 Certifique-se de ter o Node.js instalado e, em seguida, execute os seguintes passos:
 
-1. Instale as dependências:
+1. **Instale as dependências:**
    ```bash
    npm install
    ```
 
-Com essa nova estrutura, o código foi modularizado e as responsabilidades foram distribuídas em arquivos específicos para facilitar a manutenção e compreensão do código. Se precisar de mais alguma coisa, estou aqui para ajudar!
+2. **Inicie a aplicação:**
+   ```bash
+   npm start
+   ```
+
+   Agora você está pronto para sentir o pulso dos dados com o DataPulse!
+
+## Licença
+
+Este projeto é licenciado sob a [Licença ISC](LICENSE).
