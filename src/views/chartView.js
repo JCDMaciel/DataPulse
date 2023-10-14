@@ -171,25 +171,40 @@ function handleUploadButtonClick() {
     document.getElementById('fileInput').click();
 }
 
-function handleFileUpload() {
+// Adicione esta função no seu chartView.js
+async function handleFileUpload() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
 
     if (file) {
         if (file.name.endsWith('.csv')) {
-            const fs = require('fs');
+            const fs = require('fs').promises;
             const path = require('path');
-            const uploadPath = path.join(__dirname, '..', '..', 'dados', file.name);
+            const uploadDir = path.join(__dirname, '..', '..', 'dados');
+            const uploadPath = path.join(uploadDir, 'arquivo.csv');
 
-            fs.copyFile(file.path, uploadPath, (err) => {
-                if (err) {
-                    console.error(err);
-                } else {
-                    handleReload();
-                }
-            });
+            try {
+                // Verifique se a pasta 'dados' existe, crie se não existir
+                await fs.mkdir(uploadDir, { recursive: true });
+
+                // Verifique se há um arquivo 'arquivo.csv' e exclua se existir
+                const existingFile = path.join(uploadDir, 'arquivo.csv');
+                await fs.unlink(existingFile).catch(() => {}); // Ignora se não existir
+
+                // Use fs.promises.rename para renomear e mover o arquivo
+                await fs.rename(file.path, uploadPath);
+
+                // Operação de cópia concluída com sucesso
+                // Aqui você pode adicionar lógica adicional se necessário
+
+                // Recarregue a página ou faça qualquer ação necessária
+                handleReload();
+            } catch (err) {
+                console.error(err);
+            }
         } else {
             alert('Por favor, selecione um arquivo CSV.');
         }
     }
 }
+
