@@ -3,16 +3,6 @@ const Chart = require('chart.js');
 let myChart;
 
 /**
- * Destrói o gráfico existente se houver.
- * @param {Chart} chart - O objeto de gráfico a ser destruído.
- */
-function destroyExistingChart(chart) {
-    if (chart) {
-        chart.destroy();
-    }
-}
-
-/**
  * Gera uma cor aleatória hexadecimal.
  * @returns {string} - Uma cor aleatória no formato hexadecimal.
  */
@@ -44,6 +34,5 @@ function renderChart(ctx, complexities, dataset) {
 
 module.exports = {
     getRandomColor,
-    destroyExistingChart,
     renderChart,
 };

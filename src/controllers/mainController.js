@@ -1,7 +1,7 @@
 const { ipcRenderer, shell } = require('electron');
-const csvModel = require('../models/csvModel');
 const dataProcessor = require('../models/dataProcessor');
 const tableBuilder = require('../views/assets/js/tableBuilder');
+const chartBuilder = require('../views/assets/js/chartBuilder');
 const uiUpdater = require('../views/assets/js/uiUpdater');
 const fileHandler = require('../models/fileHandler');
 
@@ -16,9 +16,9 @@ ipcRenderer.on('csv-data', handleCSVData);
 function handleCSVData(event, data) {
     // Agrupa os dados por complexidade e cria a tabela e o gráfico
     const complexitiesObject = dataProcessor.groupByComplexity(data);
-    tableBuilder.createTableAndChart('myChart', complexitiesObject);
+    tableBuilder.createTable(complexitiesObject);
+    chartBuilder.createChart('myChart', complexitiesObject);
 
-    // Calcula o total de itens e a média por dia e atualiza a interface do usuário
     initializeApp(data);
 }
 
@@ -54,7 +54,7 @@ function handleReload() {
 document.addEventListener('DOMContentLoaded', setupEventListeners);
 
 /**
- * Configura os ouvintes de eventos após o carregamento do DOM.
+ * Configura os Escutadores de eventos após o carregamento do DOM.
  */
 function setupEventListeners() {
     const uploadButton = document.getElementById('uploadButton');

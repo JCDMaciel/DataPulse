@@ -1,4 +1,4 @@
-const { createTableElement } = require('../views/assets/js/tableBuilder');
+const { createTableElement, createTable} = require('../views/assets/js/tableBuilder');
 
 /**
  * Inicializa um objeto de complexidades com arrays vazios.
@@ -29,7 +29,7 @@ function fillComplexities(data, complexitiesObject) {
  * @param {Object} complexitiesObject - O objeto de complexidades a ser usado na criação da tabela.
  */
 function createComplexitiesTable(complexitiesObject) {
-    createTableElement(complexitiesObject);
+    createTable(complexitiesObject);
 }
 
 /**
