@@ -19,14 +19,14 @@ function handleCSVData(event, data) {
     tableBuilder.createTableAndChart('myChart', complexitiesObject);
 
     // Calcula o total de itens e a média por dia e atualiza a interface do usuário
-    calculateTotalItemsAndAverage(data);
+    initializeApp(data);
 }
 
 /**
- * Calcula o total de itens e a média por dia e atualiza a interface do usuário.
+ * inicializa os dados e atualiza a interface do usuário.
  * @param {Array} data - Dados do CSV.
  */
-function calculateTotalItemsAndAverage(data) {
+function initializeApp(data) {
     const totalItemsNoMes = data.length;
 
     // Cria um mapa contendo a contagem de itens por dia
