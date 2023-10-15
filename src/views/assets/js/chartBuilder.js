@@ -1,16 +1,18 @@
 const chartRenderer = require('./chartRenderer');
 
-/**
- * Cria o conjunto de dados para o gráfico de barras.
- * @param {string} canvasId - O ID do elemento canvas.
- * @param {Object} complexitiesObject - O objeto de complexidades a ser usado no conjunto de dados.
- */
+let myChart;
+
 function createChart(canvasId, complexitiesObject) {
     const chartCanvas = document.getElementById(canvasId);
     const complexities = Object.keys(complexitiesObject);
 
     const ctx = chartCanvas.getContext('2d');
     const dataset = createChartDataset(complexities, complexitiesObject);
+
+    // Destrói o gráfico existente antes de criar um novo
+    if (myChart) {
+        myChart.destroy();
+    }
 
     updateTableAndChart(ctx, complexities, dataset);
 }
@@ -23,14 +25,8 @@ function createChartDataset(complexities, complexitiesObject) {
     };
 }
 
-/**
- * Atualiza o contêiner da tabela e o gráfico de barras.
- * @param {CanvasRenderingContext2D} ctx - O contexto do gráfico no qual desenhar.
- * @param {Array} complexities - Um array de rótulos para as complexidades.
- * @param {Object} dataset - O conjunto de dados para o gráfico.
- */
 function updateTableAndChart(ctx, complexities, dataset) {
-    chartRenderer.renderChart(ctx, complexities, dataset);
+    myChart = chartRenderer.renderChart(ctx, complexities, dataset, myChart);
 }
 
 module.exports = {
