@@ -120,5 +120,4 @@ function updateTableContainer(container, table) {
 module.exports = {
     createTableAndChart,
     createTableElement,
-    updateTableContainer,
 };

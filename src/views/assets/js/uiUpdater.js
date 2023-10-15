@@ -45,6 +45,6 @@ window.handleReload = handleReload;
 
 module.exports = {
     updateUI,
-    abrirLinkExterno,
-    handleReload,
+    abrirLinkExterno, //chamado direto no html
+    handleReload, //chamado direto no html
 };
