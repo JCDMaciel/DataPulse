@@ -44,6 +44,21 @@ function groupByComplexity(data) {
     return complexitiesObject;
 }
 
+function countReprovados(data) {
+    const reprovados = data.filter(item => item['Tags'].includes('REPROVADO'));
+    const reprovadosIndevidamente = data.filter(item => parseInt(item['Reprovação Indevida']) === 1);
+
+    const reprovadosNaoIndevidamente = reprovados.filter(item => !reprovadosIndevidamente.includes(item));
+
+    return reprovadosNaoIndevidamente.length;
+}
+
+function mediaReprovados(totalItemsReprovadosNoMes, totalDays) {
+    return totalItemsReprovadosNoMes / totalDays;
+}
+
 module.exports = {
     groupByComplexity,
+    countReprovados,
+    mediaReprovados
 };

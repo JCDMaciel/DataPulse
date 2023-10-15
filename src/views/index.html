@@ -35,7 +35,7 @@
 <input type="file" id="fileInput" accept=".csv" style="display:none;" onchange="handleFileUpload()">
 
 <grafico>
-    <div class="container mt-4">
+    <div class="container mt-3">
         <div class="col">
             <canvas id="myChart" style="margin-top: 20px;"></canvas>
         </div>
@@ -43,7 +43,7 @@
 </grafico>
 
 <tabela-de-resultados>
-    <div class="container mt-4">
+    <div class="container mt-3">
         <div class="row">
             <div class="col">
                 <div id="table-container" class="table-responsive">
@@ -57,35 +57,57 @@
     </div>
 </tabela-de-resultados>
 
-<quantidade-de-itens>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col">
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <quantidade-de-itens>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total de Itens no Mês</h5>
                         <p class="card-text" id="totalItensNoMes">0</p>
                     </div>
                 </div>
-            </div>
+            </quantidade-de-itens>
+        </div>
+
+        <div class="col">
+            <quantidade-de-itens-reprovados>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total de Itens Reprovados</h5>
+                        <p class="card-text" id="totalItensReprovadosNoMes">0</p>
+                    </div>
+                </div>
+            </quantidade-de-itens-reprovados>
         </div>
     </div>
-</quantidade-de-itens>
+</div>
 
-<media-de-itens-por-dia>
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col">
+<div class="container mt-3">
+    <div class="row">
+        <div class="col">
+            <media-de-itens-por-dia>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Média de Itens por Dia</h5>
                         <p class="card-text" id="mediaItensPorDia">0</p>
                     </div>
                 </div>
-            </div>
+            </media-de-itens-por-dia>
+        </div>
+
+        <div class="col">
+            <media-de-itens-reprovados-no-mes>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Média de Itens Reprovados</h5>
+                        <p class="card-text" id="mediaItensReprovadosNoMes">0</p>
+                    </div>
+                </div>
+            </media-de-itens-reprovados-no-mes>
         </div>
     </div>
-</media-de-itens-por-dia>
+</div>
 
 <script src="assets/js/uiUpdater.js"></script>
 <script src="../controllers/mainController.js"></script>

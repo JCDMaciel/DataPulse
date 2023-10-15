@@ -36,9 +36,11 @@ function calculateTotalItemsAndAverage(data) {
     const totalItemsPerDay = Array.from(daysMap.values());
     const averageItemsPerDay = csvModel.calculateAverageItemsPerDay(totalItemsPerDay, totalDays);
     const userName = csvModel.getUserName(data);
+    const totalItemsReprovadosNoMes = dataProcessor.countReprovados(data);
+    const mediaItensReprovadosNoMes = dataProcessor.mediaReprovados(totalItemsReprovadosNoMes, totalDays);
 
     // Atualiza a interface do usuário com os resultados
-    uiUpdater.updateUI(totalItemsNoMes, averageItemsPerDay, userName);
+    uiUpdater.updateUI(totalItemsNoMes, averageItemsPerDay, userName, totalItemsReprovadosNoMes, mediaItensReprovadosNoMes);
 }
 
 /**

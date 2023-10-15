@@ -2,11 +2,16 @@
  * Atualiza os elementos da interface do usuário com os valores fornecidos.
  * @param {number} totalItensNoMes - O total de itens no mês.
  * @param {number} averageItemsPerDay - A média de itens por dia.
+ * @param {string} userName - O nome do usuário que está sendo analisado.
+ * @param {number} totalItensReprovadosNoMes - O total de itens reprovados no mês.
+ * @param {number} mediaItensReprovadosNoMes - A média de itens reprovados por dia.
  */
-function updateUI(totalItensNoMes, averageItemsPerDay, userName) {
+function updateUI(totalItensNoMes, averageItemsPerDay, userName, totalItensReprovadosNoMes, mediaItensReprovadosNoMes) {
     updateElementText('totalItensNoMes', totalItensNoMes.toString());
     updateElementText('mediaItensPorDia', averageItemsPerDay.toFixed(2));
     updateElementText('userName', userName);
+    updateElementText('totalItensReprovadosNoMes', totalItensReprovadosNoMes.toString());
+    updateElementText('mediaItensReprovadosNoMes', mediaItensReprovadosNoMes.toFixed(2));
 }
 
 /**
@@ -23,7 +28,7 @@ function updateElementText(elementId, text) {
  * @param {string} url - A URL do link externo.
  */
 function abrirLinkExterno() {
-    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=f76e0957-bfbb-4f82-aeb2-bfee85b4d37b';
+    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=7d3e0301-01c9-4a8d-afcb-ce64d402aaad';
     shell.openExternal(url);
 }
 
