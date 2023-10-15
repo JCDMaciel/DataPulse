@@ -2,12 +2,10 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { readCSV } = require('./src/models/csvModel');
 
-/**
- * Cria e configura a janela principal.
- * @returns {BrowserWindow} A instância da janela principal.
- */
-function createMainWindow() {
-    const mainWindow = new BrowserWindow({
+let mainWindow;
+
+function createMainWindow(data) {
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 1200,
         webPreferences: {
@@ -16,51 +14,44 @@ function createMainWindow() {
         },
     });
 
-    // Leitura do arquivo CSV e envio dos dados para a janela principal
-    readCSV('./dados/arquivo.csv', (data) => {
-        mainWindow.webContents.send('csv-data', data);
-        console.log('Os dados do arquivo CSV foram lidos com sucesso.');
-    });
-
     // Carrega o arquivo HTML na janela principal
     mainWindow.loadFile(path.join(__dirname, 'src/views/index.html'));
+
+    // Envia os dados para a janela principal após o carregamento
+    mainWindow.webContents.on('did-finish-load', () => {
+        mainWindow.webContents.send('csv-data', data);
+    });
+
+    // Manipula o evento de recarregar o aplicativo
+    ipcMain.on('reload-app', () => {
+        const currentWindow = BrowserWindow.getFocusedWindow();
+
+        // Fecha a janela atual se existir
+        if (currentWindow) {
+            currentWindow.close();
+        }
+
+        // Cria uma nova janela principal com os dados
+        createMainWindow(data);
+    });
 
     return mainWindow;
 }
 
-// Quando o aplicativo estiver pronto, cria a janela principal
 app.whenReady().then(() => {
-    // (essa variavel não está em desuso)
-    const mainWindow = createMainWindow();
+    readCSV(path.join(__dirname, 'dados', 'arquivo.csv'), (data) => {
+        createMainWindow(data);
+    });
 
-    // Ativa a janela principal se não houver janelas abertas
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
+        if (!mainWindow) {
             createMainWindow();
         }
     });
-});
 
-// Encerra o aplicativo quando todas as janelas forem fechadas
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
-});
-
-/**
- * Manipula o evento de recarregar o aplicativo.
- * Fecha a janela atual e cria uma nova.
- */
-ipcMain.on('reload-app', () => {
-    const currentWindow = BrowserWindow.getFocusedWindow();
-
-    // Cria uma nova janela principal
-    // (essa variavel não está em desuso)
-    const mainWindow = createMainWindow();
-
-    // Fecha a janela atual se existir
-    if (currentWindow) {
-        currentWindow.close();
-    }
+    app.on('window-all-closed', () => {
+        if (process.platform !== 'darwin') {
+            app.quit();
+        }
+    });
 });
