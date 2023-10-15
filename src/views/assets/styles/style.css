@@ -77,3 +77,7 @@ body {
 .navbar-nav .nav-link {
     color: #fff !important;
 }
+
+.user {
+    font-size: 12px;
+}

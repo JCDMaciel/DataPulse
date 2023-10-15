@@ -72,8 +72,22 @@ function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
     return totalItemsPerDay.reduce((sum, count) => sum + count, 0) / totalDays;
 }
 
+function getUserName(data) {
+    const assignedTo = data.map(item => {
+        const fullName = item["Assigned To"];
+        const endIndex = fullName.lastIndexOf(' ');
+
+        return fullName.substring(0, endIndex);
+    });
+
+    console.log(assignedTo[0]);
+
+    return assignedTo[0];
+}
+
 module.exports = {
     readCSV,
     createDaysMap,
     calculateAverageItemsPerDay,
+    getUserName,
 };

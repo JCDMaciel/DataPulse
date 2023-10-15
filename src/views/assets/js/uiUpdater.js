@@ -3,9 +3,10 @@
  * @param {number} totalItensNoMes - O total de itens no mês.
  * @param {number} averageItemsPerDay - A média de itens por dia.
  */
-function updateUI(totalItensNoMes, averageItemsPerDay) {
+function updateUI(totalItensNoMes, averageItemsPerDay, userName) {
     updateElementText('totalItensNoMes', totalItensNoMes.toString());
     updateElementText('mediaItensPorDia', averageItemsPerDay.toFixed(2));
+    updateElementText('userName', userName);
 }
 
 /**
