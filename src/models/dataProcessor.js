@@ -44,6 +44,11 @@ function groupByComplexity(data) {
     return complexitiesObject;
 }
 
+/**
+ * Manipula os dados vindo do CSV e retorna o total de itens reprovados descartando as reprovações indevidas
+ * @param {Array} data - O array de dados tratados do CSV
+ * @returns {number} - total de itens reprovados
+ */
 function countReprovados(data) {
     const reprovados = data.filter(item => item['Tags'].includes('REPROVADO'));
     const reprovadosIndevidamente = data.filter(item => parseInt(item['Reprovação Indevida']) === 1);
@@ -53,6 +58,12 @@ function countReprovados(data) {
     return reprovadosNaoIndevidamente.length;
 }
 
+/**
+ * Retorna a media de itens reprovados
+ * @param {number} totalItemsReprovadosNoMes - total de itens reprovados
+ * @param {number} totalDays - total de dias de trabalho
+ * @returns {number} - media de itens reprovados
+ */
 function mediaReprovados(totalItemsReprovadosNoMes, totalDays) {
     return totalItemsReprovadosNoMes / totalDays;
 }
