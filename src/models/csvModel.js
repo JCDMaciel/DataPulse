@@ -72,6 +72,11 @@ function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
     return totalItemsPerDay.reduce((sum, count) => sum + count, 0) / totalDays;
 }
 
+/**
+ * Recolhe o nome do usuario que está sendo analisado.
+ * @param {Array} data - Dados do CSV parseados.
+ * @returns {string} - Nome do usuário que está sendo analisado.
+ */
 function getUserName(data) {
     const assignedTo = data.map(item => {
         const fullName = item["Assigned To"];
