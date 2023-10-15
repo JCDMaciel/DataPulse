@@ -85,8 +85,6 @@ function getUserName(data) {
         return fullName.substring(0, endIndex);
     });
 
-    console.log(assignedTo[0]);
-
     return assignedTo[0];
 }
 
