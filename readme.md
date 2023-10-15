@@ -14,12 +14,13 @@ DataPulse: Transforme suas conquistas mensais em pulsos vibrantes de insights. E
         - `fileHandler.js`
     - **views:** Contém as visualizações da aplicação.
         - **assets:**
-            - **styles:**
-                - `style.css`
             - **js:**
                 - `tableBuilder.js`
+                - `chartBuilder.js`
                 - `chartRenderer.js`
                 - `uiUpdater.js`
+            - **styles:**
+              - `style.css`
         - `index.html`
 - **main.js:** Ponto de entrada para a aplicação Electron.
 - **package.json:** Arquivo de configuração do Node.js.
