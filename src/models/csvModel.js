@@ -33,64 +33,6 @@ function parseCSV(csvContent, callback) {
     });
 }
 
-/**
- * Cria um mapa contendo a contagem de itens por dia a partir dos dados fornecidos.
- * @param {Array} data - Dados do CSV parseados.
- * @returns {Map} - Mapa com a contagem de itens por dia.
- */
-function createDaysMap(data) {
-    return data.reduce((daysMap, entry) => {
-        const resolvedDate = new Date(entry['Resolved Date Log1']);
-        const dayKey = resolvedDate.toISOString().split('T')[0];
-
-        updateDaysMap(daysMap, dayKey);
-
-        return daysMap;
-    }, new Map());
-}
-
-/**
- * Atualiza o mapa de dias com a contagem de itens.
- * @param {Map} daysMap - Mapa com a contagem de itens por dia.
- * @param {string} dayKey - Chave do dia.
- */
-function updateDaysMap(daysMap, dayKey) {
-    if (!daysMap.has(dayKey)) {
-        daysMap.set(dayKey, 0);
-    }
-
-    daysMap.set(dayKey, daysMap.get(dayKey) + 1);
-}
-
-/**
- * Calcula a média de itens por dia.
- * @param {Array} totalItemsPerDay - Array contendo a contagem de itens por dia.
- * @param {number} totalDays - Número total de dias.
- * @returns {number} - Média de itens por dia.
- */
-function calculateAverageItemsPerDay(totalItemsPerDay, totalDays) {
-    return totalItemsPerDay.reduce((sum, count) => sum + count, 0) / totalDays;
-}
-
-/**
- * Recolhe o nome do usuario que está sendo analisado.
- * @param {Array} data - Dados do CSV parseados.
- * @returns {string} - Nome do usuário que está sendo analisado.
- */
-function getUserName(data) {
-    const assignedTo = data.map(item => {
-        const fullName = item["Assigned To"];
-        const endIndex = fullName.lastIndexOf(' ');
-
-        return fullName.substring(0, endIndex);
-    });
-
-    return assignedTo[0];
-}
-
 module.exports = {
     readCSV,
-    createDaysMap,
-    calculateAverageItemsPerDay,
-    getUserName,
 };

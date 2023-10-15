@@ -30,12 +30,12 @@ function calculateTotalItemsAndAverage(data) {
     const totalItemsNoMes = data.length;
 
     // Cria um mapa contendo a contagem de itens por dia
-    const daysMap = csvModel.createDaysMap(data);
+    const daysMap = dataProcessor.createDaysMap(data);
 
     const totalDays = daysMap.size;
     const totalItemsPerDay = Array.from(daysMap.values());
-    const averageItemsPerDay = csvModel.calculateAverageItemsPerDay(totalItemsPerDay, totalDays);
-    const userName = csvModel.getUserName(data);
+    const averageItemsPerDay = dataProcessor.calculateAverageItemsPerDay(totalItemsPerDay, totalDays);
+    const userName = dataProcessor.getUserName(data);
     const totalItemsReprovadosNoMes = dataProcessor.countReprovados(data);
     const mediaItensReprovadosNoMes = dataProcessor.mediaReprovados(totalItemsReprovadosNoMes, totalDays);
 
