@@ -9,7 +9,14 @@ const parse = require('csv-parse');
 function readCSV(filePath, callback) {
     fs.readFile(filePath, 'utf8', (err, fileContent) => {
         if (err) {
-            console.error('Erro ao ler o arquivo CSV:', err);
+            // Verifica se o erro é devido ao arquivo não existir
+            if (err.code === 'ENOENT') {
+                // Chama o callback com null para indicar que o arquivo não foi encontrado
+                callback(null);
+            } else {
+                // Se for um erro diferente, imprime o erro
+                console.error('Erro ao ler o arquivo CSV:', err);
+            }
             return;
         }
 
