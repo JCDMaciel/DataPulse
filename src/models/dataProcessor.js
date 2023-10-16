@@ -123,6 +123,73 @@ function getUserName(data) {
     return assignedTo[0];
 }
 
+/**
+ * Calcula o tempo médio para resolver itens com base nas datas de início e conclusão.
+ * @param {Array} data - Array de objetos contendo informações sobre os itens.
+ * @returns {Array} - Array de objetos com o ID do item e o tempo médio para resolver.
+ */
+function getAverageTimeToResolve(data) {
+    const hoursSpentArray = [];
+
+    data.forEach(item => {
+        const startDateString = item["Em Andamento Date Log 1"] || item["Em Andamento Date Log1"];
+        const finishDateString = item["Resolved Date Log1"];
+        const itemId = item["ID"] || item["﻿ID"];
+
+        logItemDetails(itemId, startDateString, finishDateString);
+
+        if (startDateString && finishDateString && itemId) {
+            const { hours, minutes } = calculateTimeDifference(startDateString, finishDateString);
+
+            // Adiciona as horas gastas ao array
+            hoursSpentArray.push({ id: itemId, time: `${hours}:${minutes}` });
+        }
+    });
+
+    logResult(hoursSpentArray);
+    return hoursSpentArray;
+}
+
+/**
+ * Calcula a diferença de tempo entre duas datas.
+ * @param {string} startDateString - String representando a data de início.
+ * @param {string} finishDateString - String representando a data de conclusão.
+ * @returns {Object} - Objeto contendo as horas e minutos de diferença.
+ */
+function calculateTimeDifference(startDateString, finishDateString) {
+    const startDate = new Date(startDateString.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
+    const finishDate = new Date(finishDateString.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
+
+    // Calcula a diferença em milissegundos
+    const timeDiff = finishDate - startDate;
+
+    // Converte a diferença para horas e minutos
+    const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+    return { hours, minutes };
+}
+
+/**
+ * Registra os detalhes do item no console.
+ * @param {string} itemId - ID do item.
+ * @param {string} startDateString - String representando a data de início.
+ * @param {string} finishDateString - String representando a data de conclusão.
+ */
+function logItemDetails(itemId, startDateString, finishDateString) {
+    console.log("Item ID:", itemId);
+    console.log("Start Date:", startDateString);
+    console.log("Finish Date:", finishDateString);
+}
+
+/**
+ * Registra o resultado no console.
+ * @param {Array} hoursSpentArray - Array de objetos com o ID do item e o tempo gasto.
+ */
+function logResult(hoursSpentArray) {
+    console.log(hoursSpentArray);
+}
+
 module.exports = {
     groupByComplexity,
     countReprovados,
@@ -130,4 +197,5 @@ module.exports = {
     createDaysMap,
     calculateAverageItemsPerDay,
     getUserName,
+    getAverageTimeToResolve,
 };

@@ -36,6 +36,7 @@ function initializeApp(data) {
     const totalItemsPerDay = Array.from(daysMap.values());
     const averageItemsPerDay = dataProcessor.calculateAverageItemsPerDay(totalItemsPerDay, totalDays);
     const userName = dataProcessor.getUserName(data);
+    const mediaTempoGastoItem = dataProcessor.getAverageTimeToResolve(data);
     const totalItemsReprovadosNoMes = dataProcessor.countReprovados(data);
     const mediaItensReprovadosNoMes = dataProcessor.mediaReprovados(totalItemsReprovadosNoMes, totalDays);
 

@@ -28,7 +28,7 @@ function updateElementText(elementId, text) {
  * @param {string} url - A URL do link externo.
  */
 function abrirLinkExterno() {
-    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=7d3e0301-01c9-4a8d-afcb-ce64d402aaad';
+    const url = 'https://grupoitss.visualstudio.com/DocNix%20Corporate/_queries/query/?tempQueryId=47c0df63-29c4-4d86-90ee-a5b1f80d5ce2';
     shell.openExternal(url);
 }
 
